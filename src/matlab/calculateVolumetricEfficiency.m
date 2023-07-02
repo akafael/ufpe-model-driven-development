@@ -11,19 +11,25 @@ function ve = calculateVolumetricEfficiency(rpm,airTemperature,airPressure)
     %
     % Returns:
     %   ve: Volumetric Efficiency
+    arguments
+        rpm (1,1) double {mustBeNumeric,mustBeReal,mustBeNonnegative}
+        airTemperature (1,1) double {mustBeNumeric,mustBeReal,mustBePositive}
+        airPressure (1,1) double {mustBeNumeric,mustBeReal,mustBePositive}
+    end
+
 
     % Constants
-    R = 8.134                        % [J/mol*Celsius] Universal Gases Constant
-    volumeEngineTotal  = 1.984/1000  % 1.984 * 10^(-3) [m^3]
-    rpmMax = 6000                    % [RPM] Max RPM Allowed 
-    veMax = 1                        % Max Volumetric Eficiency
+    R = 8.134;                        % [J/mol*K] Universal Gases Constant
+    volumeEngineTotal  = 1.984/1000;  % 1.984 * 10^(-3) [m^3]
+    rpmMax = 6000;                    % [RPM] Max RPM Allowed 
+    veMax = 1;                        % Max Volumetric Eficiency
     
     veReal = volumeEngineTotal*(airPressure/(R*airTemperature))*(rpm/2)
     veTeoric = volumeEngineTotal*(rpmMax/2)*veMax
 
-    % Full Volumetrica Efficience Equation
+    % Full Volumetric Efficience Equation
     % ve = veReal/veTeoric
 
     % Simplified Volumetric Efficiency Equation
-    ve = ((airPressure/(R*airTemperature))*rpm )/(rpmMax*veMax)
+    ve = ((airPressure/(R*airTemperature))*rpm )/(rpmMax*veMax);
 end
